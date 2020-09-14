@@ -8,7 +8,7 @@ class Banking:
         self.card_number = None
         self.pin_number = None
         self.balance = None
-        self.conn = sqlite3.connect('card.s3db')
+        self.conn = sqlite3.connect('bank.db')
         self.cur = self.conn.cursor()
 
     def create_table(self):
