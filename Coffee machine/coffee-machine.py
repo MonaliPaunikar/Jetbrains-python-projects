@@ -13,7 +13,7 @@ class CoffeeMachine:
         print(self.available_milk, "of milk")
         print(self.available_beans, "of coffee beans")
         print(self.available_cup, "of disposable cups")
-        print("$", self.money, "of money")
+        print("$" + self.money, "of money")
 
     def latte(self):
 
@@ -77,44 +77,57 @@ class CoffeeMachine:
             self.money += 4
             print("I have enough resources, making you a coffee!")
 
-    def menu(self):
+    def buy(self):
+        coffee_type = input("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu: ")
+        if coffee_type == "1":
+            print()
+            self.espresso()
 
+        elif coffee_type == "2":
+            print()
+            self.latte()
+
+        elif coffee_type == "3":
+            print()
+            self.cappuccino()
+
+        elif coffee_type == "back":
+            self.menu()
+
+        else:
+            print("Select Valid option!")
+
+    def fill(self):
+        print()
+        water_add = int(input("Write how many ml of water do you want to add: "))
+        milk_add = int(input("Write how many ml of milk do you want to add: "))
+        beans_add = int(input("Write how many grams of coffee beans do you want to add: "))
+        cups_add = int(input("Write how many disposable cups of coffee do you want to add: "))
+        self.available_water += water_add
+        self.available_milk += milk_add
+        self.available_beans += beans_add
+        self.available_cup += cups_add
+        print("Resources have been added!")
+
+
+    def menu(self):
         while True:
+            print()
             choice = input("Write action (buy, fill, take, remaining, exit):")
 
             if choice == "buy":
-                coffee_type = input(
-                    "What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu:")
-                if coffee_type == "1":
-                    self.espresso()
-
-                elif coffee_type == "2":
-                    self.latte()
-
-                elif coffee_type == "3":
-                    self.cappuccino()
-
-                elif coffee_type == "back":
-                    continue
-
-                else:
-                    print()
+                self.buy()
 
             elif choice == "fill":
-                water_add = int(input("Write how many ml of water do you want to add:"))
-                milk_add = int(input("Write how many ml of milk do you want to add:"))
-                beans_add = int(input("Write how many grams of coffee beans do you want to add:"))
-                cups_add = int(input("Write how many disposable cups of coffee do you want to add:"))
-                self.available_water += water_add
-                self.available_milk += milk_add
-                self.available_beans += beans_add
-                self.available_cup += cups_add
+                self.fill()
 
             elif choice == "take":
+                print()
                 print("I gave you $", self.money)
                 self.money = 0
 
             elif choice == "remaining":
+                print()
                 self.initial_state()
 
             elif choice == "exit":
@@ -122,7 +135,8 @@ class CoffeeMachine:
 
             else:
                 print()
+                print("Please select valid Input!")
 
 
-tasty = CoffeeMachine()
-tasty.menu()
+coffee_shop = CoffeeMachine()
+coffee_shop.menu()
