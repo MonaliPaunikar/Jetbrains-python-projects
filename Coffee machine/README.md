@@ -1,10 +1,10 @@
-# Coffee Machine
+# Coffee Machine :coffee:
 ---
 <br>
 
 
 ## :pushpin: Task 
-:pushpin:
+
 > To create a program for a Coffee Machine. It performs the following task.
 >1. It should ask the customers which action they want to perform. Following actions can be performed by the coffee machine.
 > 
