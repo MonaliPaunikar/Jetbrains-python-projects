@@ -6,14 +6,14 @@ Project                | Solution
  --------------------- | ------------------
  Simple Banking System | [View Solution][banking.py]
  Coffee Machine        | [View Solution][coffee-machine.py]
- Hangman               | [View Solution][hangman.py]
+ Hangman               | [View Solution](./Hangman/hangman.py)
  To do list            | [View Solution][to-do-list.py]
  Tic Tac Toe           | [View Solution][tic-tac-toe.py]
  Rock paper scissor    | [View Solution][rock-paper-scissor.py]
  Simple chat bot       | [View Solution][simple-chatty-bot.py]
  Zookeeper             | [View Solution][zookeeper.py]
 
- 
+
 
  
 
