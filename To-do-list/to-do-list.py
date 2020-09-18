@@ -19,30 +19,6 @@ class Task(Base):
     deadline = Column("deadline", Date, default=datetime.today())
 
 
-def add_task():
-    print('Enter task')
-    user_task = input()
-    print('Enter deadline')
-    date_string = input()
-    user_deadline = datetime.strptime(date_string, '%Y-%m-%d')
-    new_row = Task(task=user_task, deadline=datetime.date(user_deadline))
-    session.add(new_row)
-    session.commit()
-    print('The task has been added!')
-
-
-def today_task():
-    today = datetime.today()
-    rows = session.query(Task).filter(Task.deadline == today.date()).all()
-    day = today.day
-    month = today.strftime('%b')
-    print(f'Today {day} {month}:')
-    if len(rows) == 0:
-        print("Nothing to do!")
-    for row in rows:
-        print("%d. %s" % (row.id, row.task))
-
-
 def week_task():
     week = {0: 'Monday', 1: 'Tuesday', 2: 'Wednesday', 3: 'Thursday',
             4: 'Friday', 5: 'Saturday', 6: 'Sunday'}
@@ -124,7 +100,15 @@ while True:
 
     elif choice == '1':
         # Today's task
-        today_task()
+        today = datetime.today()
+        rows = session.query(Task).filter(Task.deadline == today.date()).all()
+        day = today.day
+        month = today.strftime('%b')
+        print(f'Today {day} {month}:')
+        if len(rows) == 0:
+            print("Nothing to do!")
+        for row in rows:
+            print("%d. %s" % (row.id, row.task))
 
     elif choice == '2':
         # Week's Tasks
@@ -140,7 +124,15 @@ while True:
 
     elif choice == '5':
         # adding task
-        add_task()
+        print('Enter task')
+        user_task = input()
+        print('Enter deadline')
+        date_string = input()
+        user_deadline = datetime.strptime(date_string, '%Y-%m-%d')
+        new_row = Task(task=user_task, deadline=datetime.date(user_deadline))
+        session.add(new_row)
+        session.commit()
+        print('The task has been added!')
 
     elif choice == '6':
         # For deleting task
