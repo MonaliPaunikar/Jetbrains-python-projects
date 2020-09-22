@@ -7,10 +7,6 @@ from sqlalchemy.orm import sessionmaker
 
 Base = declarative_base()
 
-engine = create_engine('sqlite:///todo.db?check_same_thread=False')
-Base.metadata.create_all(bind=engine)
-Session = sessionmaker(bind=engine)
-session = Session()
 
 class Task(Base):
     __tablename__ = 'task'
@@ -19,11 +15,35 @@ class Task(Base):
     deadline = Column("deadline", Date, default=datetime.today())
 
 
+def add_task():
+    print('Enter task')
+    user_task = input()
+    print('Enter deadline')
+    date_string = input()
+    user_deadline = datetime.strptime(date_string, '%Y-%m-%d')
+    new_row = Task(task=user_task, deadline=datetime.date(user_deadline))
+    session.add(new_row)
+    session.commit()
+    print('The task has been added!')
+
+
+def today_task():
+    today = datetime.today()
+    rows = session.query(Task).filter(Task.deadline == today.date()).all()
+    day = today.day
+    month = today.strftime('%b')
+    print(f'Today {day} {month}:')
+    if len(rows) == 0:
+        print("Nothing to do!")
+    for row in rows:
+        print("%d. %s" % (row.id, row.task))
+
+
 def week_task():
     week = {0: 'Monday', 1: 'Tuesday', 2: 'Wednesday', 3: 'Thursday',
             4: 'Friday', 5: 'Saturday', 6: 'Sunday'}
     today = datetime.today()
-    for i in range(7):
+    for _ in range(7):
         week_day = week[today.weekday()]
         day = today.day
         month = today.strftime('%b')
@@ -80,7 +100,10 @@ def delete_task():
         session.commit()
 
 
-
+engine = create_engine('sqlite:///todo.db?check_same_thread=False')
+Base.metadata.create_all(bind=engine)
+Session = sessionmaker(bind=engine)
+session = Session()
 while True:
     print()
     print("1) Today's tasks")
@@ -100,15 +123,7 @@ while True:
 
     elif choice == '1':
         # Today's task
-        today = datetime.today()
-        rows = session.query(Task).filter(Task.deadline == today.date()).all()
-        day = today.day
-        month = today.strftime('%b')
-        print(f'Today {day} {month}:')
-        if len(rows) == 0:
-            print("Nothing to do!")
-        for row in rows:
-            print("%d. %s" % (row.id, row.task))
+        today_task()
 
     elif choice == '2':
         # Week's Tasks
@@ -124,15 +139,7 @@ while True:
 
     elif choice == '5':
         # adding task
-        print('Enter task')
-        user_task = input()
-        print('Enter deadline')
-        date_string = input()
-        user_deadline = datetime.strptime(date_string, '%Y-%m-%d')
-        new_row = Task(task=user_task, deadline=datetime.date(user_deadline))
-        session.add(new_row)
-        session.commit()
-        print('The task has been added!')
+        add_task()
 
     elif choice == '6':
         # For deleting task

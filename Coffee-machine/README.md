@@ -1,6 +1,5 @@
 # Coffee Machine :coffee:
 ---
-<br>
 
 
 ## :pushpin: Task 
