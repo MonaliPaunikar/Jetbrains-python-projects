@@ -2,7 +2,7 @@
 
 ---
 
-## :pushpin: Task
+## :pushpin:Task
 
 > To create simple banking system that allows user to create account and log in to the account.
 >1. Create account : The account and pin number are created and stored in database using sqlite3 module. Card number is given by following Luhn's algorithm.
