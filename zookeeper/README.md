@@ -1,4 +1,4 @@
-# ZOOKEEPER
+# ZOOKEEPER :tiger2:
 This is a simple program designed for observing animals in a zoo.
 
 ## :pushpin:Task
