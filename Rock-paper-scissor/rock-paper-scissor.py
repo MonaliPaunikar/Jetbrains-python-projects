@@ -45,10 +45,9 @@ class game:
 
     def menu(self, options):
         print("Select any of the following option:")
-        print("!rating")
-        print('!exit')
         total_options = ['!exit', '!rating', 'rock', 'paper', 'scissors']
-        total_options.extend(options)
+        if len(options) > 1:
+            total_options.extend(options)
         print(total_options)
         print('Enter your choice:')
 
@@ -56,7 +55,7 @@ class game:
     def main(self):
         user = input("Enter your name: ")
         print(f"Hello {user}")
-        my_file = open('./rating.txt', 'r')
+        my_file = open('rating.txt')
         my_list = []
         for line in my_file:
             data = line.split()
@@ -65,8 +64,7 @@ class game:
             if record[0] == user:
                 self.score = int(record[1])
                 break
-        print("Enter the options you want to play with seperated by comma(,)")
-        print("To play with default options(rock, paper, scissors), press enter")
+        print("Enter the options you want to play with seperated by comma(,). To play with default options(rock, paper, scissors), press enter:")
         options = input().split(",")
         print("Okay, let's start")
         while True:
